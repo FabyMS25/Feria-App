@@ -25,11 +25,14 @@ use Illuminate\Support\Collection;
 class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
-
+    public static function hideFromNavigation(): bool
+    {
+        return true;
+    }
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Administración';
-    protected static ?string $navigationLabel ='Empleados';
+    protected static ?string $navigationGroup = 'Reportes';
+    protected static ?string $navigationLabel ='Reportes';
     public static function form(Form $form): Form
     {
         return $form

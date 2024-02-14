@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Company;
+use Filament\Facades\Filament;
 use Livewire\Component;
 
 class Profile extends Component
@@ -11,7 +13,7 @@ class Profile extends Component
         $user = auth()->user();
         $roles = auth()->user()->roles;
 
-        $company=$user->companies->first();
+        $company = Filament::getTenant(Company::class);
 
         return view('livewire.profile',['user'=>$user,'company'=>$company]);
 

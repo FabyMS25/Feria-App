@@ -11,11 +11,11 @@
 					<div class="col-xl-8">
 						<div class="tab-content p-0">
 
-							<div class="tab-pane fade show active" id="profile-post">
-                                @include('pages.posts.post', ['postList' => $company->posts,'user'=>$user])
+							<div class="tab-pane fade" id="profile-post">
+
 							</div>
 
-							<div class="tab-pane fade" id="profile-followers">
+							<div class="tab-pane fade show active " id="profile-followers">
 								<div class="list-group">
 									<div class="list-group-item d-flex align-items-center">
 										<img src="/assets/img/user/user-1.jpg" alt="" width="50" class="rounded-sm ms-n2">

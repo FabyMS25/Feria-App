@@ -65,16 +65,14 @@ class AppPanelProvider extends PanelProvider
                     ->label('Configuraciones')
                     ->collapsed(),
                 NavigationGroup::make()
+                    ->label('Reportes')
+                    ->collapsed(),
+                NavigationGroup::make()
                     ->label(fn (): string => __('navigation.settings'))
                     ->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
             ])
             ->navigationItems([
-                NavigationItem::make(label:'Items')
-                    ->url('/dashboard/companies/empleados')
-                    ->icon('heroicon-o-rectangle-stack')
-                    ->group('Administración')
-                    ->sort(4),
                 NavigationItem::make(label:'Reportes')
                     ->url('/profile', shouldOpenInNewTab: true)
                     ->icon('heroicon-o-presentation-chart-line')

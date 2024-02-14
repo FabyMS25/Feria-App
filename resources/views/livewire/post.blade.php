@@ -34,7 +34,7 @@
 					</div>
 
                     <h3>{{$post->title ? $post->title :''}}</h3>
-					<p class="mb-0">{!! \Illuminate\Support\Str::limit($post->content,50,'...') !!}</p>
+					<p class="mb-0">{!! \Illuminate\Support\Str::limit($post->content,100,'...') !!}</p>
 
                 @if($post->media)
 					<div class="profile-img-list">
