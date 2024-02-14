@@ -2,9 +2,9 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\App\Pages\Tenancy\EditTeamProfile;
-use App\Filament\App\Pages\Tenancy\RegisterTeam;
-use App\Models\Team;
+use App\Filament\App\Pages\Tenancy\EditCompanyProfile;
+use App\Filament\App\Pages\Tenancy\RegisterCompany;
+use App\Models\Company;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -22,41 +22,76 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+use Filament\Navigation\NavigationItem;
+use Filament\Navigation\NavigationGroup;
+// use RalphJSmit\Filament\Notifications\FilamentNotifications;
 class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
-            ->id('app')
-            ->path('app')
+            ->id('feria')
+            ->path('feria')
             ->login()
-            ->registration()
             ->profile()
+            ->colors([
+                'primary' => 'rgb(48, 190, 255)',
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => 'rgb(32,201,151)',
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
+            ])
+            ->sidebarCollapsibleOnDesktop()
+            ->databaseNotifications(true)
+            ->databaseNotificationsPolling(interval: '30s')
+
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Admin')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->url('/admin')
-                    ->visible(fn (): bool => auth()->user()->is_admin)
+                    ->visible(fn (): bool => auth()->user()->hasRole('Admin'))
             ])
-            ->colors([
-                'danger' => Color::Red,
-                'gray' => Color::Slate,
-                'info' => Color::Blue,
-                'success' => Color::Emerald,
-                'warning' => Color::Orange,
-                'primary' => Color::Amber,
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Administración')
+                    ->collapsible(),
+                NavigationGroup::make()
+                    ->label('Publicidad')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Configuraciones')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label(fn (): string => __('navigation.settings'))
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
             ])
+            ->navigationItems([
+                NavigationItem::make(label:'Items')
+                    ->url('/dashboard/companies/empleados')
+                    ->icon('heroicon-o-rectangle-stack')
+                    ->group('Administración')
+                    ->sort(4),
+                NavigationItem::make(label:'Reportes')
+                    ->url('/profile', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-presentation-chart-line')
+                    ->activeIcon('heroicon-s-presentation-chart-line')
+                    ->group('Reportes')
+                    ->sort(3)
+                    // ->visible(fn():bool=>auth()->user()->can(abilities:'view-company'))
+            ])
+
             ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                Pages\Dashboard::class
             ])
             ->discoverWidgets(in: app_path('Filament/App/Widgets'), for: 'App\\Filament\\App\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -69,11 +104,14 @@ class AppPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->tenant(Team::class, ownershipRelationship: 'team', slugAttribute: 'slug')
-            ->tenantRegistration(RegisterTeam::class)
-            ->tenantProfile(EditTeamProfile::class);
+            ->tenant(Company::class, ownershipRelationship: 'company', slugAttribute: 'slug')
+            ->tenantRegistration(RegisterCompany::class)
+            ->tenantProfile(EditCompanyProfile::class)
+            ->viteTheme('resources/css/filament/feria/theme.css')
+            ;
     }
 }

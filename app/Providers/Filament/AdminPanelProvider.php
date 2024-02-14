@@ -20,6 +20,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,10 +30,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->colors([
-                'danger' => Color::Red,
-                'gray' => Color::Slate,
+                'primary' => 'rgb(48, 190, 255)',
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
                 'info' => Color::Blue,
-                'primary' => Color::Indigo,
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
             ])
@@ -40,20 +41,21 @@ class AdminPanelProvider extends PanelProvider
                 MenuItem::make()
                     ->label('Dashboard')
                     ->icon('heroicon-o-cog-6-tooth')
-                    ->url('/app')
+                    ->url('/feria')
             ])
-            ->font('Inter')
+
             ->navigationGroups([
-                'Employee Management',
                 'System Management',
                 'User Management'
             ])
             ->favicon(asset('images/favicon.ico'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            // ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
+            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
@@ -70,6 +72,8 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 VerifyIsAdmin::class
-            ]);
+            ])
+            // ->viteTheme('resources/css/filament/feria/theme.css')
+            ;
     }
 }

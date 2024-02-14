@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
+use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\ServiceProvider;
+
+use Illuminate\Pagination\Paginator;
+use Illuminate\View\View;
+use Filament\Filament;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::useBootstrapFive();
+        FilamentView::registerRenderHook(
+            'panels::auth.login.form.after',
+            fn (): View => view('filament.pages.auth.login_extra')
+        );
     }
 }

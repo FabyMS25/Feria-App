@@ -16,10 +16,17 @@ class VerifyIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user() && Auth::user()->is_admin) {
+        // dd($request);
+        if (Auth::user()) {
             return $next($request);
         }
+        // $userRoles = Auth::user()->roles->pluck('name');
 
-        return redirect('/app');
+        // if ($userRoles->contains('Admin')) {
+        //     return $next($request);
+        // }else if ($userRoles->contains('Client')) {
+        //     return redirect('/feria-client');
+        // }
+        return redirect('/feria');
     }
 }

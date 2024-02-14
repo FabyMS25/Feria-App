@@ -28,6 +28,8 @@ class EmployeeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Administración';
+    protected static ?string $navigationLabel ='Empleados';
     public static function form(Form $form): Form
     {
         return $form
@@ -60,9 +62,9 @@ class EmployeeResource extends Resource
                             ->searchable()
                             ->preload()
                             ->required(),
-                        Forms\Components\Select::make('department_id')
+                        Forms\Components\Select::make('store_id')
                             ->relationship(
-                                name: 'department',
+                                name: 'store',
                                 titleAttribute: 'name',
                                 modifyQueryUsing: fn (Builder $query) => $query->whereBelongsTo(Filament::getTenant())
                             )
@@ -173,7 +175,7 @@ class EmployeeResource extends Resource
                         TextEntry::make(
                             'city.name'
                         ),
-                        TextEntry::make('department.name'),
+                        TextEntry::make('store.name'),
                     ])->columns(2),
                 Section::make('Name')
                     ->schema([

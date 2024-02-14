@@ -12,9 +12,9 @@ class Employee extends Model
 
     protected $guarded = [];
 
-    public function department(): BelongsTo
+    public function store(): BelongsTo
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Store::class);
     }
 
     public function country(): BelongsTo
@@ -30,8 +30,8 @@ class Employee extends Model
         return $this->belongsTo(City::class);
     }
 
-    public function team(): BelongsTo
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Company::class);
     }
 }
