@@ -1,8 +1,6 @@
 
 <div>
 
-
-    {{$client}}
 	<div class="profile">
 		<!-- BEGIN profile-header -->
 		<div class="profile-header">
@@ -47,28 +45,23 @@
 				</ul>
 			</div>
 		</div>
-		<!-- END profile-header -->
-
-		<!-- BEGIN profile-container -->
 		<div class="profile-container">
-			<!-- BEGIN profile-sidebar -->
-            {{-- @include('pages.profile.profile-sidebar') --}}
-			<!-- END profile-sidebar -->
-
-			<!-- BEGIN profile-content -->
+			<div class="profile-sidebar">
+				<div class="desktop-sticky-top">
+					<h4>{{$client->name}}</h4>
+					<div class="fw-500 mb-3 text-muted mt-n2">{{$client->email}}</div>
+                </div>
+            </div>
 			<div class="profile-content">
 				<div class="row">
 					<div class="col-xl-8">
 						<div class="tab-content p-0">
-							<!-- BEGIN tab-pane -->
 							<div class="tab-pane fade show active" id="profile-post">
-
-                                {{-- @include('pages.posts.post', ['postList' => $company->posts,'user'=>$user]) --}}
+                                <?php $posts= App\Models\Post::all() ?>
+                                @include('pages.posts.post', ['postList' => $posts,'user'=>$client])
 
 							</div>
-							<!-- END tab-pane -->
 
-							<!-- BEGIN tab-pane -->
 							<div class="tab-pane fade" id="profile-followers">
 								<div class="list-group">
 									<div class="list-group-item d-flex align-items-center">
@@ -307,14 +300,10 @@
 						</div>
 					</div>
 
-                    {{-- @include('pages.profile.profile-trends', ['postList' => $company->posts,'user'=>$user]) --}}
+                    @include('pages.profile.profile-trends')
 
 				</div>
 			</div>
-			<!-- END profile-content -->
 		</div>
-		<!-- END profile-container -->
-	{{-- </div>
-    </div> --}}
     </div>
 </div>

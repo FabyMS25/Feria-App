@@ -2,7 +2,7 @@
 
 <div  class="relative">
   <div class="absolute end-0 z-10 mt-2 w-56 p-2">
-      <a  href="http://127.0.0.1:8000/feria/{{$company->slug}}/posts/{{$post->id}}/edit"
+      <a  href="http://127.0.0.1:8000/feria/{{$post->company->slug}}/posts/{{$post->id}}/edit"
         class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
         role="menuitem"
       >
@@ -16,7 +16,7 @@
 
 					<div class="d-flex align-items-center mb-3">
 						<a href="#">
-                            <img src="/storage/{{ $company->logo}}" alt="" width="50" class="rounded-circle">
+                            <img src="/storage/{{ $post->company->logo}}" alt="" width="50" class="rounded-circle">
                         </a>
 						<div class="flex-fill ps-2">
 							<div class="fw-500">
