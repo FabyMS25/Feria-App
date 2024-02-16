@@ -32,42 +32,61 @@
 					</div>
 
                     <h3>{{$post->title ? $post->title :''}}</h3>
-					<p class="mb-0">{!! \Illuminate\Support\Str::limit($post->content,50,'...') !!}</p>
-
-                @if($post->media)
+					<p class="mb-0">{!! \Illuminate\Support\Str::limit($post->content,100,'...') !!}</p>
+                @if($post->getMediaType()=='image')
 					<div class="profile-img-list">
-    					<div class="profile-img-list-item main">
-                            <a href="/images/gallery-6.jpg" data-lity class="profile-img-list-link">
-                                <img src="{{$post->getThumbnail($post->media->first())}}"/>
-                            </a>
-                        </div>
+                        @if ($post->media->count()==1)
+                            <div class="profile-img-list-item first">
+                                <a href="{{$post->getThumbnail($post->media->first())}}" data-lity class="profile-img-list-link">
+                                    <img src="{{$post->getThumbnail($post->media->first())}}"/>
+                                </a>
+                            </div>
+
+                        @else
+                            <div class="profile-img-list-item main">
+                                <a href="{{$post->getThumbnail($post->media->first())}}" data-lity class="profile-img-list-link">
+                                    <img src="{{$post->getThumbnail($post->media->first())}}"/>
+                                </a>
+                            </div>
+                        @endif
+
                        @foreach($post->media as $key => $media)
                         @if ($key == 0)  @php $key++; @endphp  @continue
+
                         @elseif ($key > 3)
 			    		<div class="profile-img-list-item with-number">
-							<a href="/assets/img/gallery/gallery-5.jpg" data-lity class="profile-img-list-link">
+							<a href="{{$post->getThumbnail($media)}}" data-lity class="profile-img-list-link">
                                 <img src="{{$post->getThumbnail($media)}}"/>
 								<div class="profile-img-number">{{$post->media->count()>4?"+".$post->media->count()-4:''}}</div>
 							</a>
 						</div>
                         @break
-
                         @endif
+                        @if ($post->media->count()==2)
+                            <div class="profile-img-list-item main">
+                                <a href="{{$post->getThumbnail($media)}}" data-lity class="profile-img-list-link">
+                                    <img src="{{$post->getThumbnail($media)}}"/>
+                                </a>
+                            </div>
+                        @break
+                        @else
 	    				<div class="profile-img-list-item">
-                            <a href="/assets/img/gallery/gallery-2.jpg" data-lity class="profile-img-list-link">
+                            <a href="{{$post->getThumbnail($media)}}" data-lity class="profile-img-list-link">
                                 <img src="{{$post->getThumbnail($media)}}"/>
                             </a>
                         </div>
+                        @endif
                         @endforeach
 
                     </div>
                 @endif
 			</div>
 
-            @if($post->title =='video')
+            {{$post->getThumbnail($media)}}
+            @if($post->getMediaType()=='video')
 				<div class="pt-0 ps-0 pe-0">
 					<div class="ratio ratio-16x9">
-						<iframe src="https://www.youtube.com/embed/ChOhcHD8fBA?showinfo=0"></iframe>
+						<iframe src="{{$post->getThumbnail($media)}}"></iframe>
 					</div>
 				</div>
             @endif

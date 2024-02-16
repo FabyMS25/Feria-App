@@ -17,6 +17,12 @@ class Register extends BaseRegisterPage
     public function form(Form $form):Form
     {
         return $form->schema([
+                Forms\Components\FileUpload::make('avatar'),
+                    Forms\Components\Select::make('client_type_id')
+                        ->multiple()
+                        ->preload()
+                        // ->relationship('types', 'name')
+                        ->required(),
             $this->getNameFormComponent(),
             $this->getEmailFormComponent(),
             // Forms\Components\TextInput::make('celular')

@@ -46,7 +46,7 @@ class ClientResource extends Resource
                     TextInput::make('password')
                     ->label('Contraseña')
                     ->password()
-                    // ->hiddenOn('edit')
+                    ->hiddenOn('edit')
                     ->maxLength(255)
                     ->dehydrateStateUsing(fn ($state)=> Hash::make($state))
                     ->dehydrated(fn ($state) => filled($state))

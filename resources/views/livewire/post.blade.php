@@ -39,7 +39,7 @@
                 @if($post->media)
 					<div class="profile-img-list">
     					<div class="profile-img-list-item main">
-                            <a href="/images/gallery-6.jpg" data-lity class="profile-img-list-link">
+                            <a href="{{$post->getThumbnail($post->media->first())}}" data-lity class="profile-img-list-link">
                                 <img src="{{$post->getThumbnail($post->media->first())}}"/>
                             </a>
                         </div>

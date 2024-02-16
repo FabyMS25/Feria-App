@@ -22,7 +22,12 @@
                                 @include('pages.posts.post', ['postList' => $company->posts,'user'=>$user])
 							</div>
 
-
+							<div class="tab-pane fade" id="profile-followers">
+                            </div>
+							<div class="tab-pane fade" id="profile-media">
+                            </div>
+							<div class="tab-pane fade" id="profile-video">
+							</div>
 						</div>
 					</div>
 

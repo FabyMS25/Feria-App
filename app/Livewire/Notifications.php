@@ -14,6 +14,7 @@ class Notifications extends Component
         $roles = auth()->user()->roles;
 
         $company = Filament::getTenant(Company::class);
+
         return view('livewire.notifications',['user'=>$user,'company'=>$company]);
     }
 }

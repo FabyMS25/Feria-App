@@ -32417,6 +32417,9 @@ body .note-modal-backdrop {
 .profile .profile-img-list .profile-img-list-item.main {
     width: 50%;
 }
+.profile .profile-img-list .profile-img-list-item.first {
+    width: 100%;
+}
 
 .profile .profile-img-list .profile-img-list-item .profile-img-list-link {
     display: block;

@@ -90,7 +90,6 @@ class User extends Authenticatable implements HasTenants, FilamentUser
             // 'feria-client' =>  Auth::check() && Auth::user()->hasRole('Client'),
             // 'admin' => $user->hasRole(['Admin', 'Super Admin']),
             // 'feria' => $user->hasAnyRole(['Titular', 'Employee', 'Admin']),
-            'feria-client' => $role == 'Client',
             'admin' => $role == 'Admin' || $role == 'Super Admin',
             'feria' => true,//$role == 'Titular' || $role =='Employee' || $role == 'Admin',
         };

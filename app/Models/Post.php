@@ -32,8 +32,8 @@ class Post extends Model
     public function getThumbnail(PostMedia $media)
     {
         // $this->thumbnail
-        // $media = $this->media->first()?->file_path;
-        $media=$media->file_path;
+        $media = $this->media->first()?->file_path;
+        // $media=$this->media->file_path;
         if(\str_starts_with($media,'http')){
             return $media;
         }
@@ -41,8 +41,9 @@ class Post extends Model
         return '/storage/'.$media;
     }
 
-public function getMediaType(String $filePath)
+public function getMediaType()
 {
+        $filePath = $this->media->first()?->file_path;
     $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
     if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif'])) {
         return 'image';
@@ -51,8 +52,8 @@ public function getMediaType(String $filePath)
     } elseif ($fileExtension === 'pdf') {
         return 'file';
     } else {
-        // Other file types
+        return 'html';
     }
-    // Now you can store the type in the database or use it as needed
+
 }
 }
