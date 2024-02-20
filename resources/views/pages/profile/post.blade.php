@@ -37,15 +37,15 @@
 					<div class="profile-img-list">
                         @if ($post->media->count()==1)
                             <div class="profile-img-list-item first">
-                                <a href="{{$post->getThumbnail($post->media->first())}}" data-lity class="profile-img-list-link">
-                                    <img src="{{$post->getThumbnail($post->media->first())}}"/>
+                                <a href="/storage/{{$post->media->first()}}" data-lity class="profile-img-list-link">
+                                    <img src="{{$post->getThumbnail()}}"/>
                                 </a>
                             </div>
 
                         @else
                             <div class="profile-img-list-item main">
-                                <a href="{{$post->getThumbnail($post->media->first())}}" data-lity class="profile-img-list-link">
-                                    <img src="{{$post->getThumbnail($post->media->first())}}"/>
+                                <a href="/storage/{{$post->media->first()->file_path}}" data-lity class="profile-img-list-link">
+                                    <img src="/storage/{{$post->media->first()->file_path}}"/>
                                 </a>
                             </div>
                         @endif
@@ -55,8 +55,8 @@
 
                         @elseif ($key > 3)
 			    		<div class="profile-img-list-item with-number">
-							<a href="{{$post->getThumbnail($media)}}" data-lity class="profile-img-list-link">
-                                <img src="{{$post->getThumbnail($media)}}"/>
+							<a href="{{$media}}" data-lity class="profile-img-list-link">
+                                <img src="{{$media}}"/>
 								<div class="profile-img-number">{{$post->media->count()>4?"+".$post->media->count()-4:''}}</div>
 							</a>
 						</div>
@@ -64,15 +64,15 @@
                         @endif
                         @if ($post->media->count()==2)
                             <div class="profile-img-list-item main">
-                                <a href="{{$post->getThumbnail($media)}}" data-lity class="profile-img-list-link">
-                                    <img src="{{$post->getThumbnail($media)}}"/>
+                                <a href="/storage/{{$media->file_path}}" data-lity class="profile-img-list-link">
+                                    <img src="/storage/{{$media->file_path}}"/>
                                 </a>
                             </div>
                         @break
                         @else
 	    				<div class="profile-img-list-item">
-                            <a href="{{$post->getThumbnail($media)}}" data-lity class="profile-img-list-link">
-                                <img src="{{$post->getThumbnail($media)}}"/>
+                            <a href="{{$media}}" data-lity class="profile-img-list-link">
+                                <img src="/storage/{{$media->file_path}}"/>
                             </a>
                         </div>
                         @endif
@@ -82,7 +82,7 @@
                 @endif
 			</div>
 
-            {{$post->getThumbnail($media)}}
+            {{-- {{$post->getThumbnail($media)}} --}}
             @if($post->getMediaType()=='video')
 				<div class="pt-0 ps-0 pe-0">
 					<div class="ratio ratio-16x9">

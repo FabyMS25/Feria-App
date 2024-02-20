@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('description')->nullable();
 
             $table->string('nit_ci')->nullable();
             $table->string('representante_legal')->nullable();
             $table->string('link')->nullable();
             $table->string('logo')->nullable();
+            $table->string('portada')->nullable();
 
             $table->boolean('habilitado')->default(true);
             $table->timestamp('fecha_deshabilitado')->nullable();

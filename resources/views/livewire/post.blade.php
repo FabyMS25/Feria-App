@@ -39,8 +39,8 @@
                 @if($post->media)
 					<div class="profile-img-list">
     					<div class="profile-img-list-item main">
-                            <a href="{{$post->getThumbnail($post->media->first())}}" data-lity class="profile-img-list-link">
-                                <img src="{{$post->getThumbnail($post->media->first())}}"/>
+                            <a href="/storage/{{$post->media->first()}}" data-lity class="profile-img-list-link">
+                                <img src="/storage/{{$post->media->first()}}"/>
                             </a>
                         </div>
                        @foreach($post->media as $key => $media)
@@ -48,7 +48,7 @@
                         @elseif ($key > 3)
 			    		<div class="profile-img-list-item with-number">
 							<a href="/assets/img/gallery/gallery-5.jpg" data-lity class="profile-img-list-link">
-                                <img src="{{$post->getThumbnail($media)}}"/>
+                                <img src="/storage/{{$media->file_path}}"/>
 								<div class="profile-img-number">{{$post->media->count()>4?"+".$post->media->count()-4:''}}</div>
 							</a>
 						</div>
@@ -57,7 +57,7 @@
                         @endif
 	    				<div class="profile-img-list-item">
                             <a href="/assets/img/gallery/gallery-2.jpg" data-lity class="profile-img-list-link">
-                                <img src="{{$post->getThumbnail($media)}}"/>
+                                <img src="/storage/{{$media->file_path}}"/>
                             </a>
                         </div>
                         @endforeach

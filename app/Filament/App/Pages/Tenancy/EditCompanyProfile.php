@@ -9,6 +9,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Str;
 use Filament\Pages\Tenancy\EditTenantProfile;
 
@@ -24,16 +25,9 @@ class EditCompanyProfile extends EditTenantProfile
             return $form
                 ->schema([
                     TextInput::make('name')
-                        ->label('Nombre de la Empresa')
-                    ->live(onBlur:true)
-                    ->afterStateUpdated(
-                        function (Set $set, ?string $state){
-                            $set('slug', Str::slug($state));
-                        }),
+                        ->label('Nombre de la Empresa'),
                     TextInput::make('slug')
-                        ->required()
-                        ->unique()
-                        ->maxLength(255),
+                    ->disabled(),
                 TextInput::make('representante_legal')
                     ->required()
                     ->maxLength(255),
@@ -62,5 +56,15 @@ class EditCompanyProfile extends EditTenantProfile
                     ->image()
                     ->imageEditor(),
                   ]);
+      }
+        protected function handleRegistration(array $data)
+      {
+        Notification::make()
+            ->success()
+            ->icon('heroicon-o-pencil-square')
+            ->iconColor('success')
+            ->title('Tus datos fueron Actualizados!')
+            // ->body($data)
+            ->sendToDatabase(auth()->user());
       }
 }

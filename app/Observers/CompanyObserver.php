@@ -14,13 +14,11 @@ class CompanyObserver
     public function created(Company $company): void
     {
         Notification::make()
-            ->title('Usuario Actualizado')
-            ->body('se guardo sus Datos')
-            ->actions([
-                Action::make('view')
-                    ->button()
-                    ->url(route('index')),
-            ])
+            ->success()
+            ->icon('heroicon-o-hand-raised')
+            ->iconColor('success')
+            ->title('¡Felicitaciones por formar parte del equipo!')
+            ->body('Bienvenid@ '.$company->name)
             ->sendToDatabase(auth()->user());
     }
 
@@ -29,7 +27,12 @@ class CompanyObserver
      */
     public function updated(Company $company): void
     {
-        //
+        Notification::make()
+            ->success()
+            ->icon('heroicon-o-pencil-square')
+            ->iconColor('success')
+            ->title('Tus datos fueron Actualizados!')
+            ->sendToDatabase(auth()->user(), $company->id);
     }
 
     /**

@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
-Route::get('/', Home::class);
+Route::get('/', Home::class)->name('index');
 // Route::get('/', [HomeControler::class,'index'])->name('index');
 Route::get('/items',ProductsPage::class)->name('items');
 Route::get('/item/{id}',ShowProduct::class)->name('item');

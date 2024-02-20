@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Filament\Pages\Tenancy\RegisterTenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Filament\Notifications\Notification;
 
 class RegisterCompany extends RegisterTenant
 {
@@ -67,6 +68,13 @@ class RegisterCompany extends RegisterTenant
 
             $team->members()->attach(auth()->user());
 
+            // Notification::make()
+            //     ->success()
+            //     ->icon('heroicon-o-hand-raised')
+            //     ->iconColor('success')
+            //                         ->title('¡Felicitaciones por formar parte del equipo!')
+            //                         ->body('Bienvenid@ '.$team->name)
+            //                         ->sendToDatabase(auth()->user());
             return $team;
       }
 }
