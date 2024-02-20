@@ -29,7 +29,7 @@ class Post extends Model
         return $this->hasMany(PostMedia::class);
     }
 
-    public function getThumbnail(PostMedia $media)
+    public function getThumbnail()
     {
         // $this->thumbnail
         $media = $this->media->first()?->file_path;

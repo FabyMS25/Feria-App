@@ -26,8 +26,9 @@
 							<div class="nav-value">1,397</div>
 						</a>
 					</li>
+
 					<li class="nav-item">
-						<a href="#profile-video" class="nav-link" data-bs-toggle="tab">
+						<a onclick="navigateToNotifications();" class="nav-link" data-bs-toggle="tab">
 							<div class="nav-field">Notificaciones</div>
 							<div class="nav-value">120</div>
 						</a>
@@ -38,6 +39,9 @@
 							<div class="nav-value">2,592</div>
 						</a>
 					</li>
+
 				</ul>
+
 			</div>
 		</div>
+

@@ -206,12 +206,12 @@
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.5;
     --bs-body-color: #212837;
-    --bs-body-color-rgb: 33, 40, 55;
+    /* --bs-body-color-rgb: 33, 40, 55; */
     --bs-body-bg: #ebeef4;
     --bs-body-bg-rgb: 235, 238, 244;
-    --bs-emphasis-color: #000000;
+    /* --bs-emphasis-color: #000000; */
     --bs-emphasis-color-rgb: 0, 0, 0;
-    --bs-secondary-color: rgba(33, 40, 55, 0.75);
+    /* --bs-secondary-color: rgba(33, 40, 55, 0.75); */
     --bs-secondary-color-rgb: 33, 40, 55;
     --bs-secondary-bg: #ebeef4;
     --bs-secondary-bg-rgb: 235, 238, 244;
@@ -329,7 +329,7 @@ body {
     color: var(--bs-body-color);
     text-align: var(--bs-body-text-align);
     background-color: var(--bs-body-bg);
-    -webkit-text-size-adjust: 100%;
+    /* -webkit-text-size-adjust: 100%; */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -6273,7 +6273,7 @@ fieldset:disabled .btn {
     --bs-card-cap-color: var(--bs-heading-color);
     --bs-card-height: ;
     --bs-card-color: var(--bs-body-color);
-    --bs-card-bg: var(--bs-component-bg);
+    /* --bs-card-bg: var(--bs-component-bg); */
     --bs-card-img-overlay-padding: 1rem;
     --bs-card-group-margin: 10px;
     position: relative;
@@ -25944,11 +25944,11 @@ fieldset:disabled .btn {
     --bs-app-float-submenu-link-active-bg: transparent;
 }
 
-/*
+
 .app-sidebar {
   --bs-app-sidebar-top: 3.75rem;
   --bs-app-sidebar-zindex: 1020;
-  --bs-app-sidebar-width: 15rem;
+  --bs-app-sidebar-width: 10rem;
   --bs-app-sidebar-border-color: #dae0ec;
   --bs-app-sidebar-content-padding-y: 0.625rem;
   --bs-app-sidebar-content-padding-x: 0;
@@ -26124,7 +26124,7 @@ fieldset:disabled .btn {
   --bs-app-sidebar-menu-link-active-color: var(--bs-theme);
   --bs-app-sidebar-content-mobile-bg: #171c27;
   --bs-app-sidebar-mobile-backdrop-bg: rgba(33, 40, 55, 0.5);
-} */
+}
 
 .app-header {
     --bs-app-header-bg: #FFFFFF;
@@ -32238,7 +32238,7 @@ body .note-modal-backdrop {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 10.625rem;
+    height: 15rem;
     position: relative;
 }
 

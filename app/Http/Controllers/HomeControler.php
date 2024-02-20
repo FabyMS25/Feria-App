@@ -22,7 +22,7 @@ class HomeControler extends Controller
             ->whereDate('published_at','<',Carbon::now())
             ->orderBy('published_at','desc')
             ->paginate(5);
-        return view('index',compact('posts'));
+        return view('livewire.home',compact('posts'));
     }
 
     public function byCategory(PostCategory $category)
