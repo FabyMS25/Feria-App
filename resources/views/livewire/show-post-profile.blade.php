@@ -6,7 +6,25 @@
 
         <div class="w-full mt-6" x-data="{ openTab: 4 }">
 
-        @include('pages.profile.profile-header', ['company' => $company,'user'=>$user])
+            <div class="profile-header position-relative" >
+                @if ($company->portada)
+                    <img src="/storage/{{$company->portada}}" alt="" class="profile-wid-img">
+                @else
+                    <div class="profile-header-cover"></div>
+                @endif
+                <div class="overlay-content">
+                    <div class="text-end p-3">
+                        <div class="p-0 ms-auto rounded-circle profile-photo-edit">
+                            <a href="{{App\Filament\App\Pages\EditProfile::getUrl()}}">
+                            <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
+                                <i class="ri-image-edit-line align-bottom me-1"></i> Editar Perfil
+                            </label>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @include('pages.profile.profile-header', ['company' => $company,'user'=>$user])
+            </div>
 
 		<div class="profile-sidebar">
 			<div class="desktop-sticky-top">

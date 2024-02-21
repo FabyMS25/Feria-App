@@ -1,12 +1,12 @@
 
-		<div class="profile-header position-relative" >
-			{{-- <div class="profile-header-cover"> --}}
+		{{-- <div class="profile-header position-relative" >
+			<div class="profile-header-cover">
             @if ($company->portada)
                 <img src="{{ asset(Auth::user()->picture) }}" alt="" class="w-16 h-16 rounded-full object-cover">
             @else
                 <img src="{{ URL::asset('images/profile-bg.jpg') }}" class="profile-wid-img" alt=""  >
             @endif
-            {{-- </div> --}}
+            </div>
             <div class="overlay-content">
                 <div class="text-end p-3">
                     <div class="p-0 ms-auto rounded-circle profile-photo-edit">
@@ -17,7 +17,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 			<div class="profile-header-content">
@@ -60,4 +60,4 @@
 				</ul>
 
 			</div>
-		</div>
+		{{-- </div> --}}
