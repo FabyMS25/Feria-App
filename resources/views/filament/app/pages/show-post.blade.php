@@ -1,3 +1,3 @@
 {{-- <x-filament-panels::page> --}}
-    <livewire:Notifications />
+    <livewire:show-post-profile :record="$record"/>
 {{-- </x-filament-panels::page> --}}

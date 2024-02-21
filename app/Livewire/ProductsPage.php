@@ -51,4 +51,5 @@ class ProductsPage extends Component
             'categories'=>$categories
         ]);
     }
+
 }

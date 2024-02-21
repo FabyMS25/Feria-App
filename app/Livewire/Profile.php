@@ -2,12 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Filament\App\Pages\ProfilePage;
 use App\Models\Company;
 use App\Models\Post;
 use Carbon\Carbon;
 use Filament\Facades\Filament;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\Url;
 
 class Profile extends Component
@@ -18,6 +20,7 @@ class Profile extends Component
 
     public function render()
     {
+
         $user = auth()->user();
         $roles = auth()->user()->roles;
         $company = Filament::getTenant(Company::class);
@@ -37,6 +40,21 @@ class Profile extends Component
 
 
         return view('livewire.profile',['posts'=>$posts,'user'=>$user,'company'=>$company]);
+
+    }
+
+
+    public function showPost()
+    {
+        $user = auth()->user();
+        $company = Filament::getTenant(Company::class);
+
+
+            // $post= Post::findOrFail('1');
+        $post=Post::first();
+
+
+        return view('livewire.profile',['posts'=>$post,'user'=>$user,'company'=>$company]);
 
     }
 }

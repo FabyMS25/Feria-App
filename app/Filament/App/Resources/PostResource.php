@@ -12,15 +12,15 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Notifications\Notification;
+use Filament\Notifications\Actions\Action;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Notifications\Actions\Action;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use App\Filament\App;
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
@@ -36,6 +36,7 @@ class PostResource extends Resource
                 Forms\Components\Section::make()->schema([
                     Forms\Components\Grid::make(2)->schema([
                         Forms\Components\TextInput::make('title')
+                            ->label('Titulo de Publicación')
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur:true)
@@ -45,15 +46,18 @@ class PostResource extends Resource
                             ->maxLength(255),
                     ]),
                     Forms\Components\RichEditor::make('content')
+                        ->label('Contenido de Publicación')
                         ->required()
                         ->columnSpanFull(),
                     Forms\Components\TextInput::make('meta_title'),
                     Forms\Components\TextInput::make('meta_description'),
 
                     Forms\Components\Toggle::make('active')
+                        ->label('Activar')
                         ->required(),
                     Forms\Components\Grid::make()->schema([
                         Forms\Components\DateTimePicker::make('published_at')
+                            ->label('Publicar en')
                             ->required(),
                     ]),
                     // Forms\Components\DateTimePicker::make('fecha_eliminado'),
@@ -64,11 +68,13 @@ class PostResource extends Resource
                     Forms\Components\FileUpload::make('thumbnail')
                     ->hidden(),
                     Forms\Components\Select::make('post_category_id')
+                            ->label('Categorías')
                         ->multiple()
                         ->preload()
                         ->relationship('categories', 'name')
                         ->required(),
                     Forms\Components\Repeater::make('media')
+                        ->label('Imagenes/videos y/o Archivos')
                         ->label('Media')
                         ->relationship()
                         ->schema([
@@ -84,10 +90,13 @@ class PostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('media.file_path')
+                            ->label('Archivos')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')
+                            ->label('Titulo')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('active')
+                            ->label('Activo')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
@@ -138,7 +147,7 @@ class PostResource extends Resource
                                     ->actions([
                                         Action::make('Ver Post')
                                             ->button()
-                                            ->url(route('index')),
+                                            ->url(App\Pages\ShowPost::getUrl([$record->id])),
                                         Action::make('Marcar como leido')
                                             ->button()
                                             ->url(route('index')),

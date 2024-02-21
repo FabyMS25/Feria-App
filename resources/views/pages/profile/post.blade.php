@@ -2,11 +2,11 @@
 
 <div  class="relative">
   <div class="absolute end-0 z-10 mt-2 w-56 p-2">
-      <a  href="http://127.0.0.1:8000/feria/{{$post->company->slug}}/posts/{{$post->id}}/edit"
+      <a  href="{{App\Filament\App\Resources\PostResource::getUrl('edit',[$post->id])}}"
         class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
         role="menuitem"
       >
-      Editar
+      Editar Post
       </a>
   </div>
 </div>
@@ -20,9 +20,9 @@
                         </a>
 						<div class="flex-fill ps-2">
 							<div class="fw-500">
-                                <a href="#" class="text-decoration-none">{{$user->name}}</a>
+                                <a href="#" class="text-decoration-none">{{$post->user->name}}</a>
                                 {{$post->title ? 'publico:':''}}
-                                <a href="/{{$post->slug}}" class="text-decoration-none" @if($post->title)href="{{ $post->title }}"@endif>
+                                <a href="{{App\Filament\App\Pages\ShowPost::getUrl([$post->id])}}" class="text-decoration-none" @if($post->title)href="{{ $post->title }}"@endif>
                                     {{ $post->title }}
                                 </a>
                                 </div>

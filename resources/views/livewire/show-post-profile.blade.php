@@ -3,10 +3,10 @@
 <div>
 	<div class="profile">
 
-        <div class="w-full mt-6" x-data="{ openTab: 1 }">
+
+        <div class="w-full mt-6" x-data="{ openTab: 4 }">
 
         @include('pages.profile.profile-header', ['company' => $company,'user'=>$user])
-
 
 		<div class="profile-sidebar">
 			<div class="desktop-sticky-top">
