@@ -8,9 +8,10 @@ use App\Models\Client;
 use App\Models\Post;
 use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Notifications\Actions\Action;
 use Filament\Resources\Resource;
@@ -21,6 +22,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Filament\App;
+use App\Filament;
+use App\Models\ClientType;
+use Illuminate\Support\Collection;
+
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
@@ -124,33 +129,61 @@ class PostResource extends Resource
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('Notificar')
                 ->form([
-                Forms\Components\Section::make('Descripción de Tienda')
-                    ->description('Enviar Notificaiones a Clientes')
+                Forms\Components\Section::make()
                     ->schema([
-                        Select::make('client')
-                            ->label('Cliente')
+                        Select::make('client-type')
+                            ->label('Tipo de Clientes')
+                            ->options(ClientType::query()->pluck('name', 'id')->prepend('Todos', 'all'))
+                            ->searchable()
+                            ->preload()
+                            ->live()
+                            ->afterStateUpdated(fn (Set $set) => $set('clients', []))
+                            ->required(),
+
+                        Select::make('clients')
+                            ->label('Clientes')
                             ->multiple()
-                            ->options(Client::query()->pluck('name', 'id')),
+                            ->options(function (Get $get): Collection {
+                                $typeId = $get('client-type');
+                                if (empty($typeId)) {
+                                    return Client::query()->pluck('name', 'id');
+                                }
+                                if ($typeId === 'all') {
+                                    return Client::query()->pluck('name', 'id');
+                                }
+                                return Client::whereHas('types', function ($query) use ($typeId) {
+                                    $query->where('client_type_id', $typeId);
+                                })->pluck('name', 'id');
+                            })
+                            ->searchable()
+                            ->preload()
+                            ->required(),
                     ])
                     ])
                     ->action(function (array $data, Post $record): void {
-                        $selectedClientIds = $data['client'];
+                        $selectedClientIds = $data['clients'];
                         foreach ($selectedClientIds as $clientId) {
                             $client = Client::find($clientId);
                             if ($client) {
                                 Notification::make()
-                                    ->success()
+                                    ->info()
                                     ->icon('heroicon-o-document-text')
-                                    ->iconColor('success')
-                                    ->title($record->user->name . ' realizó una nueva publicación')
+                                    ->iconColor('primary')
+                                    ->title($record->company->name . ' realizó una nueva publicación')
                                     ->body($record->title)
+                                    // ->view('livewire.show-post-profile')
+                                    // ->viewData(['posts'=>$record,'user'=>auth()->user(),'company'=>$record->company])
                                     ->actions([
                                         Action::make('Ver Post')
                                             ->button()
-                                            ->url(App\Pages\ShowPost::getUrl([$record->id])),
+                                            // ->url(App\Pages\ShowPost::getUrl([$record->id]))
+                                            ->url(Filament\Client\Pages\ViewPost::getUrl([$record->id]))
+                                            ->icon('heroicon-o-arrows-pointing-out')
+                                            ->openUrlInNewTab() ,
                                         Action::make('Marcar como leido')
                                             ->button()
-                                            ->url(route('index')),
+                                            ->color('success')
+                                            ->markAsRead(),
                                     ])
                                     ->sendToDatabase($client);
                             }

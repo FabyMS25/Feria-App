@@ -58,7 +58,7 @@
 						<div class="tab-content p-0">
 							<div class="tab-pane fade show active" id="profile-post">
                                 <?php $posts= App\Models\Post::all() ?>
-                                @include('pages.posts.post', ['postList' => $posts,'user'=>$client])
+                                {{-- @include('pages.profile.post', ['postList' => $posts,'user'=>$client]) --}}
 
 							</div>
             <main class="w-full flex-grow p-6">

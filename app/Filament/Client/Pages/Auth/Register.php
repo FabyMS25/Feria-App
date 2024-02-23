@@ -21,8 +21,7 @@ class Register extends BaseRegisterPage
                     Forms\Components\Select::make('client_type_id')
                         ->multiple()
                         ->preload()
-                        // ->relationship('types', 'name')
-                        ->required(),
+                        ->relationship('types', 'name'),
             $this->getNameFormComponent(),
             $this->getEmailFormComponent(),
             // Forms\Components\TextInput::make('celular')

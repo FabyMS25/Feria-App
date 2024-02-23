@@ -2,12 +2,14 @@
 
 <div  class="relative">
   <div class="absolute end-0 z-10 mt-2 w-56 p-2">
+    {{-- @if (Auth::user()->id === $post->user->id) --}}
       <a  href="{{App\Filament\App\Resources\PostResource::getUrl('edit',[$post->id])}}"
         class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
         role="menuitem"
       >
       Editar Post
       </a>
+    {{-- @endif --}}
   </div>
 </div>
 

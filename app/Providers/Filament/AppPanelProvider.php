@@ -108,7 +108,6 @@ class AppPanelProvider extends PanelProvider
             ->tenantRegistration(RegisterCompany::class)
             ->tenantProfile(EditCompanyProfile::class)
             ->viteTheme('resources/css/filament/feria/theme.css')
-            // ->viteTheme('resources/js/vendor.js')
             ;
     }
 }
