@@ -32,6 +32,7 @@ class Profile extends Component
         }else{
             $posts=Post::query()
                 ->where('active','=',1)
+                ->where('company_id','=',$company->id)
                 ->whereNotNull('published_at')
                 // ->whereDate('published_at','<',Carbon::now())
                 ->orderBy('published_at','desc')

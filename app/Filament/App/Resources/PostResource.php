@@ -177,7 +177,7 @@ class PostResource extends Resource
                                         Action::make('Ver Post')
                                             ->button()
                                             // ->url(App\Pages\ShowPost::getUrl([$record->id]))
-                                            ->url(Filament\Client\Pages\ViewPost::getUrl([$record->id]))
+                                            ->url('/feria-client/post/'.$record->id)
                                             ->icon('heroicon-o-arrows-pointing-out')
                                             ->openUrlInNewTab() ,
                                         Action::make('Marcar como leido')

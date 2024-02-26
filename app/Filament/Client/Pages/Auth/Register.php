@@ -8,6 +8,7 @@ use Filament\Pages\Auth\Register as BaseRegisterPage;
 
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\Builder;
 use Filament\Http\Responses\Auth\Contracts\RegistrationResponse;
 use Filament\Notifications\Notification;
 use Illuminate\Auth\Events\Registered;
@@ -18,10 +19,14 @@ class Register extends BaseRegisterPage
     {
         return $form->schema([
                 Forms\Components\FileUpload::make('avatar'),
-                    Forms\Components\Select::make('client_type_id')
-                        ->multiple()
-                        ->preload()
-                        ->relationship('types', 'name'),
+                    // Forms\Components\Select::make('client_type_id')
+                    //     ->multiple()
+                    //     ->relationship(
+                    //         name: 'types',
+                    //         titleAttribute: 'name'
+                    //         )
+                    //     ->searchable()
+                    //     ->preload(),
             $this->getNameFormComponent(),
             $this->getEmailFormComponent(),
             // Forms\Components\TextInput::make('celular')
@@ -53,13 +58,11 @@ class Register extends BaseRegisterPage
         }
 
         $data = $this->form->getState();
-        // $data['roles'][0] = Role::whereName('Client')->first()->id;
 
         $user = $this->getUserModel()::create($data);
 
         app()->bind(
             \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
-            \Filament\Listeners\Auth\SendEmailVerificationNotification::class,
         );
         event(new Registered($user));
 

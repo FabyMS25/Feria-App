@@ -6,7 +6,9 @@ use Filament\Facades\Filament;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,6 +53,13 @@ class Client extends Authenticatable
 
     public function  types() :BelongsToMany{
         return $this->belongsToMany(ClientType::class);
+    }
+
+    public function  profile() :BelongsTo{
+        return $this->belongsTo(Profile::class);
+    }
+    public function  subscriptions() :HasMany{
+        return $this->HasMany(Subscription::class);
     }
 
     public function canAccessPanel(Panel $panel): bool

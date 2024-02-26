@@ -2,58 +2,154 @@
 
 <div>
 	<div class="profile">
+        {{-- <div class="w-full mt-6" x-data="{ openTab: 4 }"> --}}
 
-
-        <div class="w-full mt-6" x-data="{ openTab: 4 }">
-
-            <div class="profile-header position-relative" >
-                @if ($company->portada)
-                    <img src="/storage/{{$company->portada}}" alt="" class="profile-wid-img">
-                @else
-                    <div class="profile-header-cover"></div>
-                @endif
-                <div class="overlay-content">
-                    <div class="text-end p-3">
-                        <div class="p-0 ms-auto rounded-circle profile-photo-edit">
-                            <a href="{{App\Filament\App\Pages\EditProfile::getUrl()}}">
-                            <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
-                                <i class="ri-image-edit-line align-bottom me-1"></i> Editar Perfil
-                            </label>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                @include('pages.profile.profile-header', ['company' => $company,'user'=>$user])
-            </div>
-
-		<div class="profile-sidebar">
-			<div class="desktop-sticky-top">
-				<h4>{{$company->name}}</h4>
-				<div class="fw-500 mb-3 text-muted mt-n2">{{$user->email}}</div>
-            </div>
-        </div>
 		<div class="profile-container">
-
 			<div class="profile-content">
 				<div class="row">
 					<div class="col-xl-8">
 						<div class="p-0 tab-content">
 
+                            {{-- <div class="" x-show="openTab === 4"> --}}
+                                {{-- @include('pages.profile.post', ['postList' => $posts,'user'=>$user]) --}}
+                                    @foreach ($posts as $post)
 
-							<div class="" id="profile-activities" x-show="openTab === 1">
-                                @include('pages.profile.notifications', ['postList' => $company->posts,'user'=>$user])
-							</div>
+<div  class="relative">
+  <div class="absolute end-0 z-10 mt-2 w-56 p-2">
+    @if (Auth::user()->id === $post->user->id)
+      <a  href="{{App\Filament\App\Resources\PostResource::getUrl('edit',[$post->id])}}"
+        class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+        role="menuitem"
+      >
+      Editar Post
+      </a>
+    @endif
+  </div>
+</div>
 
-							<div class=" " x-show="openTab === 2">
-                                @include('livewire.notifications', ['postList' => $company->posts,'user'=>$user])
-                            </div>
-                            <div class="" x-show="openTab === 3">
-                                Duis imperdiet ullamcorper nibh, sed euismod dolor facilisis sit amet. Etiam quis cursus lorem. Vivamus euismod accumsan neque lobortis tempus. Praesent nec lacinia odio, a dictum risus. Sed eget dictum turpis, vitae iaculis orci. Vivamus laoreet consequat velit, non viverra diam pulvinar a. Aliquam bibendum ligula lacus, ac convallis ipsum hendrerit ut. Suspendisse rutrum dui libero, non aliquam lectus lobortis at. Donec gravida finibus sollicitudin. Nulla ut metus finibus purus vehicula porttitor. Fusce id sem non nisl pulvinar scelerisque.
-                            </div>
-                            <div class="" x-show="openTab === 4">
-                                @include('pages.profile.post', ['postList' => $posts,'user'=>$user])
+        <div class="card mb-3">
+    		<div class="card-body">
+
+					<div class="d-flex align-items-center mb-3">
+						<a href="#">
+                            <img src="/storage/{{ $post->company->logo}}" alt="" width="50" class="rounded-circle">
+                        </a>
+						<div class="flex-fill ps-2">
+							<div class="fw-500">
+                                <a href="{{App\Filament\App\Pages\ProfilePage::getUrl()}}" class="text-decoration-none">{{$post->user->name}}</a>
+                                {{$post->title ? 'publico:':''}}
+                                <a href="{{App\Filament\App\Pages\ShowPost::getUrl([$post->id])}}" class="text-decoration-none" @if($post->title)href="{{ $post->title }}"@endif>
+                                    {{ $post->title }}
+                                </a>
+                                </div>
+							<div class="text-body text-opacity-50 fs-13px">{{$post->created_at}}</div>
+						</div>
+
+					</div>
+
+                    <h3>{{$post->title ? $post->title :''}}</h3>
+					<p class="mb-0">{!! $post->content !!}</p>
+                @if($post->getMediaType()=='image')
+					<div class="profile-img-list">
+                        @if ($post->media->count()==1)
+                            <div class="profile-img-list-item first">
+                                <a href="/storage/{{$post->media->first()}}" data-lity class="profile-img-list-link">
+                                    <img src="{{$post->getThumbnail()}}"/>
+                                </a>
                             </div>
 
+                        @else
+                            <div class="profile-img-list-item main">
+                                <a href="/storage/{{$post->media->first()->file_path}}" data-lity class="profile-img-list-link">
+                                    <img src="/storage/{{$post->media->first()->file_path}}"/>
+                                </a>
+                            </div>
+                        @endif
+
+                       @foreach($post->media as $key => $media)
+                        @if ($key == 0)  @php $key++; @endphp  @continue
+
+                        @elseif ($key > 3)
+			    		<div class="profile-img-list-item with-number">
+							<a href="{{$media}}" data-lity class="profile-img-list-link">
+                                <img src="{{$media}}"/>
+								<div class="profile-img-number">{{$post->media->count()>4?"+".$post->media->count()-4:''}}</div>
+							</a>
+						</div>
+                        @break
+                        @endif
+                        @if ($post->media->count()==2)
+                            <div class="profile-img-list-item main">
+                                <a href="/storage/{{$media->file_path}}" data-lity class="profile-img-list-link">
+                                    <img src="/storage/{{$media->file_path}}"/>
+                                </a>
+                            </div>
+                        @break
+                        @else
+	    				<div class="profile-img-list-item">
+                            <a href="{{$media}}" data-lity class="profile-img-list-link">
+                                <img src="/storage/{{$media->file_path}}"/>
+                            </a>
+                        </div>
+                        @endif
+                        @endforeach
+
+                    </div>
+                @endif
+			</div>
+
+            {{-- {{$post->getThumbnail($media)}} --}}
+            @if($post->getMediaType()=='video')
+				<div class="pt-0 ps-0 pe-0">
+					<div class="ratio ratio-16x9">
+						<iframe src="{{$post->getThumbnail($media)}}"></iframe>
+					</div>
+				</div>
+            @endif
+                {{-- <div class="card-body pt-0">
+					<hr class="mb-1 ms-n2 me-n2">
+                    <div class="row text-center mb-n3 fw-500">
+                        <div class="col">
+                            <a href="#" class="text-body text-opacity-75 text-decoration-none d-block p-2">
+                                <i class="far fa-thumbs-up me-1 d-block d-sm-inline"></i> Calificar
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="text-body text-opacity-75 text-decoration-none d-block p-2">
+                                <i class="far fa-comment me-1 d-block d-sm-inline"></i> Guardar
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="text-body text-opacity-75 text-decoration-none d-block p-2">
+                                <i class="fa fa-share me-1 d-block d-sm-inline"></i> Compartir
+                            </a>
+                        </div>
+                    </div>
+                </div> --}}
+				<div class="card-footer pt-3 pb-3">
+                    <div class="row text-center mt-n3 mb-n3 fw-500">
+                        <div class="col">
+                            <a href="#" class="text-body text-opacity-75 text-decoration-none d-block p-2">
+                                <i class="far fa-thumbs-up me-1 d-block d-sm-inline"></i> Calificar
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="text-body text-opacity-75 text-decoration-none d-block p-2">
+                                <i class="far fa-comment me-1 d-block d-sm-inline"></i> Guardar
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="text-body text-opacity-75 text-decoration-none d-block p-2">
+                                <i class="fa fa-share me-1 d-block d-sm-inline"></i> Compartir
+                            </a>
+                        </div>
+                    </div>
+				</div>
+		</div>
+
+    @endforeach
+
+                            {{-- </div> --}}
 
 						</div>
 					</div>
