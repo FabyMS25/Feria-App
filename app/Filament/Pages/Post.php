@@ -3,17 +3,23 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
+use App\Models;
+use App\Models\Company;
 
 class Post extends Page
 {
     protected static bool $shouldRegisterNavigation = false;
 
-    protected static string $view = 'filament.app.pages.show-post';
-    protected static ?string $slug = 'post/{id}';
-    public Post $record;
-    public function mount($id): void
-	{
-		$this->record = (new Post)->FindOrFail($id);
-	}
+    protected static string $view = 'filament.pages.show-post';
+    protected static ?string $slug = 'post/{slug}';
+    public Models\Post $post;
 
+    public Company $company;
+
+    public function mount( $slug): void
+    {
+        $this->post = Models\Post::where('slug', $slug)->firstOrFail();
+        $this->company= $this->post->company;
+
+    }
 }

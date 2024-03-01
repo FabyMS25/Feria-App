@@ -31,6 +31,9 @@ class Company extends Model
     public function  posts() :HasMany{
         return $this->hasMany(Post::class);
     }
+    public function  subscriptions() :HasMany{
+        return $this->hasMany(Subscription::class);
+    }
 
     protected static function boot()
     {

@@ -25,6 +25,10 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Navigation\NavigationItem;
 use Filament\Navigation\NavigationGroup;
 // use RalphJSmit\Filament\Notifications\FilamentNotifications;
+
+use Filament\Facades\Filament;
+use App\Filament\Pages\ProfileCompany;
+use App\Filament\App\Pages\ProfilePublic;
 class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -73,6 +77,20 @@ class AppPanelProvider extends PanelProvider
                     ->collapsed(),
             ])
             ->navigationItems([
+                NavigationItem::make(label:'Perfil')
+                    ->url(function () {
+                        $company=Filament::getTenant(Company::class);
+                        $slug =$company->slug;
+                        return "/feria/$slug/$slug/perfil";
+                    })
+                    ->icon('heroicon-o-home')
+                    ->activeIcon('heroicon-s-home')
+                    ->sort(1),
+                NavigationItem::make(label:'Estadisticas')
+                    ->url( '/feria')
+                    ->icon('heroicon-o-presentation-chart-line')
+                    ->activeIcon('heroicon-s-presentation-chart-line')
+                    ->sort(3),
                 NavigationItem::make(label:'Reportes')
                     ->url('/profile', shouldOpenInNewTab: true)
                     ->icon('heroicon-o-presentation-chart-line')
@@ -85,7 +103,8 @@ class AppPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
             ->pages([
-                Pages\Dashboard::class
+                ProfileCompany::class,
+                // Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/App/Widgets'), for: 'App\\Filament\\App\\Widgets')
 

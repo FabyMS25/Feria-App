@@ -1,8 +1,9 @@
 
 <?php
-    $subscriptions=$client->subscriptions
+    $allPosts= App\Models\Post::all();
+
+    $subscriptions=$client->subscriptions;
     // $posts=$client->subscriptions->first()->company->posts;
-    // $posts= App\Models\Post::all()
 ?>
 <div>
 	<div class="profile">
@@ -51,20 +52,20 @@
 							</div>
 
 							<div class=" " x-show="openTab === 2">
-                                {{-- @include('livewire.notifications', ['postList' => $company->posts,'user'=>$user]) --}}
+                                @include('pages.tabs.companies', ['user'=>$client])
                             </div>
                             <div class="" x-show="openTab === 3">
                                 Duis imperdiet ullamcorper nibh, sed euismod dolor facilisis sit amet. Etiam quis cursus lorem. Vivamus euismod accumsan neque lobortis tempus. Praesent nec lacinia odio, a dictum risus. Sed eget dictum turpis, vitae iaculis orci. Vivamus laoreet consequat velit, non viverra diam pulvinar a. Aliquam bibendum ligula lacus, ac convallis ipsum hendrerit ut. Suspendisse rutrum dui libero, non aliquam lectus lobortis at. Donec gravida finibus sollicitudin. Nulla ut metus finibus purus vehicula porttitor. Fusce id sem non nisl pulvinar scelerisque.
                             </div>
-                            <div class="" x-show="openTab === 4">
-                                @include('pages.profile.notifications', ['user'=>$client])
+                            <div class=" x-show="openTab === 4">
+                                @include('pages.tabs.notifications', ['user'=>$client])
                             </div>
 
 
 						</div>
 					</div>
 
-                    @include('pages.profile.profile-trends')
+                    {{-- @include('pages.profile.profile-trends',['posts'=>$allPosts]) --}}
 
 				</div>
 			</div>

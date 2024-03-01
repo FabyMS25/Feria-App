@@ -3,7 +3,7 @@
 
 	<div class="profile">
 
-        <div class="w-full mt-6" x-data="{ openTab: 1 }">
+        <div class="w-full" x-data="{ openTab: 1 }">
 
          <x-filament-panels::form wire:submit="save">
             <div class="profile-header position-relative" >
@@ -17,7 +17,6 @@
                         {{ $this->form }}
                     </div>
                 </div>
-            @include('pages.profile.profile-header', ['company' => $company,'user'=>$company->user])
         </div>
 		<div class="profile-sidebar">
 			<div class="desktop-sticky-top">
@@ -43,7 +42,7 @@
 			</div>
 		</div>
 
-                            </x-filament-panels::form>
+            </x-filament-panels::form>
         </div>
     </div>
 

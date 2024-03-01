@@ -24,7 +24,7 @@
 							<div class="fw-500">
                                 <a href="#" class="text-decoration-none">{{$post->user->name}}</a>
                                 {{$post->title ? 'publico:':''}}
-                                <a href="{{App\Filament\App\Pages\ShowPost::getUrl([$post->id])}}" class="text-decoration-none" @if($post->title)href="{{ $post->title }}"@endif>
+                                <a href="{{App\Filament\App\Pages\ShowPost::getUrl(['slug'=>$post->slug])}}" class="text-decoration-none" @if($post->title)href="{{ $post->title }}"@endif>
                                     {{ $post->title }}
                                 </a>
                                 </div>

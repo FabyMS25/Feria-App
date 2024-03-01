@@ -25,7 +25,7 @@ use App\Filament\App;
 use App\Filament;
 use App\Models\ClientType;
 use Illuminate\Support\Collection;
-
+use App\Filament\Pages\Post as ShowPost;
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
@@ -176,8 +176,8 @@ class PostResource extends Resource
                                     ->actions([
                                         Action::make('Ver Post')
                                             ->button()
-                                            // ->url(App\Pages\ShowPost::getUrl([$record->id]))
-                                            ->url('/feria-client/post/'.$record->id)
+                                            ->url('/feria-client/post/'.$record->slug)
+                                            // ->url(ShowPost::getUrl(['slug'=>$record->slug]))
                                             ->icon('heroicon-o-arrows-pointing-out')
                                             ->openUrlInNewTab() ,
                                         Action::make('Marcar como leido')

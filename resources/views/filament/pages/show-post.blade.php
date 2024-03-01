@@ -1,42 +1,41 @@
+{{-- <x-filament-panels::page> --}}
+    {{-- <livewire:show-post-profile :record="$record"/> --}}
 
 
 <div>
-	<div class="profile">
-        {{-- <div class="w-full mt-6" x-data="{ openTab: 4 }"> --}}
 
-		<div class="profile-container">
-			<div class="profile-content">
-				<div class="row">
-					<div class="col-xl-8">
-						<div class="p-0 tab-content">
-
-                            {{-- <div class="" x-show="openTab === 4"> --}}
-                                {{-- @include('pages.profile.post', ['postList' => $posts,'user'=>$user]) --}}
-                                    @foreach ($posts as $post)
-
-<div  class="relative">
-  <div class="absolute end-0 z-10 mt-2 w-56 p-2">
-    @if (Auth::user()->id === $post->user->id)
-      <a  href="{{App\Filament\App\Resources\PostResource::getUrl('edit',[$post->id])}}"
-        class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-        role="menuitem"
-      >
-      Editar Post
-      </a>
-    @endif
-  </div>
-</div>
+        <div  class="relative">
+        <div class="absolute end-0 z-10 mt-2 w-56 p-2">
+            @if (Auth::user()->id === $post->user->id)
+            <a  href="{{App\Filament\App\Resources\PostResource::getUrl('edit',[$post->id])}}"
+                class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                role="menuitem"
+            >
+            Editar Post
+            </a>
+            @endif
+        </div>
+        </div>
 
         <div class="card mb-3">
     		<div class="card-body">
 
 					<div class="d-flex align-items-center mb-3">
 						<a href="#">
-                            <img src="/storage/{{ $post->company->logo}}" alt="" width="50" class="rounded-circle">
+                            <img src="/storage/{{ $company->logo}}" alt="" width="50" class="rounded-circle">
                         </a>
 						<div class="flex-fill ps-2">
 							<div class="fw-500">
-                                <a href="{{App\Filament\Pages\ProfileCompany::getUrl(['slug'=>$post->company->slug])}}" class="text-decoration-none">{{$post->user->name}}</a>
+                                @if (Str::contains(request()->url(), '/feria-client'))
+                                <a href="{{App\Filament\Pages\ProfileCompany::getUrl(['slug'=>$company->slug])}}" class="text-decoration-none">
+                                    {{$post->user->name}}
+                                </a>
+                                @else
+
+                                <a href="{{App\Filament\App\Pages\ProfilePage::getUrl()}}" class="text-decoration-none">
+                                    {{$post->user->name}}
+                                </a>
+                                @endif
                                 {{$post->title ? 'publico:':''}}
                                 <a href="{{App\Filament\Pages\Post::getUrl(['slug'=>$post->slug])}}" class="text-decoration-none" @if($post->title)href="{{ $post->title }}"@endif>
                                     {{ $post->title }}
@@ -147,18 +146,7 @@
 				</div>
 		</div>
 
-    @endforeach
 
-                            {{-- </div> --}}
-
-						</div>
-					</div>
-
-                    {{-- @include('pages.profile.profile-trends') --}}
-
-				</div>
-			</div>
-		</div>
-        </div>
-    </div>
 </div>
+
+{{-- </x-filament-panels::page> --}}

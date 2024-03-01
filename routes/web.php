@@ -1,6 +1,7 @@
 <?php
 
 use App\Filament\App\Pages\ProfilePage;
+use App\Filament\Pages\Profile;
 use App\Http\Controllers\HomeControler;
 use App\Http\Controllers\PostController;
 use App\Livewire\Home;
@@ -36,8 +37,5 @@ Route::get('/services/{service}',ShowService::class)->name('service');
 Route::get('/category/{category:slug}', [HomeControler::class,'byCategory'])->name('by-category');
 Route::get('/company/{company:slug}', [HomeControler::class,'byCategory'])->name('by-company');
 Route::get('/{post:slug}', [HomeControler::class,'show'])->name('view');
-Route::get('/promotion/{post}', [PostController::class, 'view'])->name('promotion');
-Route::post('/send-promotion-notification/{post}', [App\Http\Controllers\PostController::class, 'sendPromotionNotification'])
-    ->name('send-promotion-notification');
 
 

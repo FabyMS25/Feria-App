@@ -44,18 +44,4 @@ class Profile extends Component
 
     }
 
-
-    public function showPost()
-    {
-        $user = auth()->user();
-        $company = Filament::getTenant(Company::class);
-
-
-            // $post= Post::findOrFail('1');
-        $post=Post::first();
-
-
-        return view('livewire.profile',['posts'=>$post,'user'=>$user,'company'=>$company]);
-
-    }
 }

@@ -53,7 +53,9 @@ class ClientResource extends Resource
                     ->required(fn (string $context):bool=>$context == 'create'),
                 ])->columnSpan(2)->columns(2),
                 Section::make('Avatar')->schema([
-                    Forms\Components\FileUpload::make('avatar'),
+                    Forms\Components\FileUpload::make('avatar')
+                    ->image()
+                    ->imageEditor(),
                     Forms\Components\Select::make('client_type_id')
                         ->multiple()
                         ->preload()
