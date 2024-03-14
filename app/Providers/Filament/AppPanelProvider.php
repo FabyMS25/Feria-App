@@ -28,7 +28,7 @@ use Filament\Navigation\NavigationGroup;
 
 use Filament\Facades\Filament;
 use App\Filament\Pages\ProfileCompany;
-use App\Filament\App\Pages\ProfilePublic;
+use App\Filament\App\Pages\Auth\EditProfile;
 class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -38,7 +38,7 @@ class AppPanelProvider extends PanelProvider
             ->id('feria')
             ->path('feria')
             ->login()
-            ->profile()
+            ->profile(EditProfile::class)
             ->colors([
                 'primary' => 'rgb(48, 190, 255)',
                 'danger' => Color::Rose,

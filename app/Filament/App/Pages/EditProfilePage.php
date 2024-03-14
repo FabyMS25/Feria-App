@@ -14,7 +14,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Support\Exceptions\Halt;
-class EditProfile extends Page implements HasForms
+class EditProfilePage extends Page implements HasForms
 {
     use InteractsWithForms;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';

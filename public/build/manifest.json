@@ -1,0 +1,32 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/css/filament/feria/theme.css": {
+    "file": "assets/theme-8f625b47.css",
+    "isEntry": true,
+    "src": "resources/css/filament/feria/theme.css"
+  },
+  "resources/css/login.css": {
+    "file": "assets/login-b2395065.css",
+    "isEntry": true,
+    "src": "resources/css/login.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-dbe23e4c.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/app.min.js": {
+    "file": "assets/app.min-c32e2853.js",
+    "isEntry": true,
+    "src": "resources/js/app.min.js"
+  },
+  "resources/js/vendor.js": {
+    "file": "assets/vendor-563815e6.js",
+    "isEntry": true,
+    "src": "resources/js/vendor.js"
+  }
+}

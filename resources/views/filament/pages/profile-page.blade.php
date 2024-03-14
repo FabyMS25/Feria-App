@@ -70,12 +70,10 @@
                                 @include('livewire.notifications', ['postList' => $company->posts,'user'=>$user])
                             </div>
                             <div class="" x-show="openTab === 3">
-
                                 @include('pages.tabs.orders', ['list' => $company->subscriptions])</div>
                             <div class="" x-show="openTab === 4">
                                 @include('pages.tabs.ventas', ['postList' => $company->posts,'user'=>$user])
                             </div>
-
                             <div class="" x-show="openTab === 5">
                                 @include('pages.profile.post', ['postList' => $company->posts,'user'=>$user])
                             </div>

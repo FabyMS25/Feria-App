@@ -6,7 +6,7 @@
                         <div class="overlay-content">
                             <div class="text-end p-3" style="align-items: flex-end">
                                 <div class="p-0 ms-auto rounded-circle profile-photo-edit">
-                                    <a href="{{App\Filament\App\Pages\EditProfile::getUrl()}}">
+                                    <a href="{{App\Filament\App\Pages\EditProfilePage::getUrl()}}">
                                     <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
                                         <i class="heroicon-o-arrow-top-right-on-square  me-1"></i> Editar Perfil
                                     </label>
@@ -22,7 +22,7 @@
                         <div class="overlay-content">
                             <div class="text-end p-3" style="align-items: flex-end">
                                 <div class="p-0 ms-auto rounded-circle profile-photo-edit">
-                                    <a href="{{App\Filament\App\Pages\EditProfile::getUrl()}}">
+                                    <a href="{{App\Filament\App\Pages\EditProfilePage::getUrl()}}">
                                     <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
                                         <i class="ri-image-edit-line align-bottom me-1"></i> Editar Perfil
                                     </label>
